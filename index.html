@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LiteEmbed: Adapting CLIP to Rare Classes</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0f1216;
+      --surface: #1a1f26;
+      --text: #e6e9ef;
+      --text-muted: #8b92a0;
+      --accent: #7eb8da;
+      --accent-dim: #5a9bc4;
+      --border: #2d343c;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      font-size: 17px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    h1 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 400;
+      margin: 0 0 1rem;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+    }
+
+    .authors {
+      font-size: 1rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .authors a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    .authors a:hover {
+      text-decoration: underline;
+    }
+
+    .links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0.55rem 1rem;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      text-decoration: none;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover {
+      background: var(--accent-dim);
+    }
+
+    .btn-outline {
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .btn-outline:hover {
+      background: var(--surface);
+      border-color: var(--text-muted);
+    }
+
+    section {
+      margin-bottom: 2.5rem;
+    }
+
+    section h2 {
+      font-family: 'DM Serif Display', Georgia, serif;
+      font-size: 1.25rem;
+      font-weight: 400;
+      margin: 0 0 0.75rem;
+      color: var(--text);
+    }
+
+    .abstract {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.25rem 1.5rem;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    .abstract p {
+      margin: 0;
+    }
+
+    .highlights {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .highlights li {
+      position: relative;
+      padding-left: 1.25rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .highlights li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+    }
+
+    .cite-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1rem 1.25rem;
+      font-family: ui-monospace, 'SF Mono', Monaco, monospace;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      overflow-x: auto;
+    }
+
+    .cite-box pre {
+      margin: 0;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>LiteEmbed: Adapting CLIP to Rare Classes</h1>
+    <p class="authors">
+      <a href="https://arxiv.org/search/cs?searchtype=author&query=Agarwal,+A">Aishwarya Agarwal</a>,
+      <a href="https://arxiv.org/search/cs?searchtype=author&query=Karanam,+S">Srikrishna Karanam</a>,
+      <a href="https://arxiv.org/search/cs?searchtype=author&query=Gandhi,+V">Vineet Gandhi</a>
+    </p>
+
+    <div class="links">
+      <a class="btn btn-primary" href="https://arxiv.org/pdf/2601.09661">Paper (PDF)</a>
+      <a class="btn btn-outline" href="https://arxiv.org/abs/2601.09661">arXiv</a>
+      <a class="btn btn-outline" href="https://github.com/aisagarw/LiteEmbed">Code (GitHub)</a>
+    </div>
+
+    <section>
+      <h2>Abstract</h2>
+      <div class="abstract">
+        <p>
+          Large-scale vision-language models such as CLIP achieve strong zero-shot recognition but struggle with classes that are rarely seen during pretraining, including newly emerging entities and culturally specific categories. We introduce <strong>LiteEmbed</strong>, a lightweight framework for few-shot personalization of CLIP that enables new classes to be added without retraining its encoders. LiteEmbed performs subspace-guided optimization of text embeddings within CLIP's vocabulary, leveraging a PCA-based decomposition that disentangles coarse semantic directions from fine-grained variations. Two complementary objectives, coarse alignment and fine separation, jointly preserve global semantic consistency while enhancing discriminability among visually similar classes. Once optimized, the embeddings are plug-and-play, seamlessly substituting CLIP's original text features across classification, retrieval, segmentation, and detection tasks. Extensive experiments demonstrate substantial gains over prior methods, establishing LiteEmbed as an effective approach for adapting CLIP to underrepresented, rare, or unseen classes.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Highlights</h2>
+      <ul class="highlights">
+        <li>Lightweight few-shot personalization of CLIP without retraining encoders</li>
+        <li>PCA-based subspace decomposition for coarse vs. fine-grained embedding optimization</li>
+        <li>Coarse alignment and fine separation objectives for semantic consistency and discriminability</li>
+        <li>Plug-and-play text embeddings for classification, retrieval, segmentation, and detection</li>
+        <li>Substantial gains over prior methods on rare and underrepresented classes</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Citation</h2>
+      <div class="cite-box">
+        <pre>@article{agarwal2026liteembed,
+  title     = {LiteEmbed: Adapting CLIP to Rare Classes},
+  author    = {Agarwal, Aishwarya and Karanam, Srikrishna and Gandhi, Vineet},
+  journal   = {arXiv preprint arXiv:2601.09661},
+  year      = {2026}
+}</pre>
+      </div>
+    </section>
+
+    <footer>
+      <a href="https://arxiv.org/abs/2601.09661">arXiv:2601.09661</a> (cs.CV) &nbsp;·&nbsp;
+      <a href="https://doi.org/10.48550/arXiv.2601.09661">DOI</a>
+    </footer>
+  </div>
+</body>
+</html>
