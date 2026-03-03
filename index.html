@@ -3,24 +3,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>LiteEmbed: Adapting CLIP to Rare Classes</title>
+<title>LiteEmbed — Adapting CLIP to Rare Classes</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --bg: #ffffff;
-  --text: #111;
-  --muted: #666;
+  --bg: #f9fafc;
+  --text: #0f172a;
+  --muted: #64748b;
   --accent: #2563eb;
-  --card: #f5f7fa;
-}
-
-body.dark {
-  --bg: #0f172a;
-  --text: #f1f5f9;
-  --muted: #94a3b8;
-  --card: #1e293b;
+  --card: #ffffff;
 }
 
 body {
@@ -29,158 +22,200 @@ body {
   background: var(--bg);
   color: var(--text);
   scroll-behavior: smooth;
-  transition: 0.3s ease;
 }
 
+/* NAV */
 nav {
-  position: sticky;
+  position: fixed;
   top: 0;
-  background: var(--bg);
-  padding: 15px 8%;
+  width: 100%;
+  backdrop-filter: blur(14px);
+  background: rgba(255,255,255,0.75);
+  padding: 18px 8%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid rgba(0,0,0,0.05);
   z-index: 1000;
+  border-bottom: 1px solid rgba(0,0,0,0.04);
+}
+
+nav strong {
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
 
 nav a {
   text-decoration: none;
-  color: var(--text);
-  margin-left: 20px;
+  margin-left: 25px;
   font-weight: 500;
+  color: var(--text);
 }
 
-.toggle {
-  cursor: pointer;
-  padding: 6px 12px;
-  border-radius: 20px;
-  background: var(--card);
-  font-size: 0.8rem;
-}
-
-.section {
-  padding: 100px 10%;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease;
-}
-
-.section.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.center { text-align: center; }
-
+/* HERO */
 .hero {
-  padding: 120px 10%;
+  padding: 180px 10% 120px 10%;
   text-align: center;
+  background: linear-gradient(to bottom, #ffffff 0%, #f1f5f9 100%);
 }
 
-h1 { font-size: 3rem; margin-bottom: 10px; }
-.subtitle { color: var(--muted); margin-bottom: 30px; }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: 3.8rem;
+  margin-bottom: 10px;
+}
+
+.subtitle {
+  font-size: 1.3rem;
+  color: var(--muted);
+  margin-bottom: 40px;
+}
 
 .btn {
   display: inline-block;
-  padding: 10px 20px;
-  margin: 6px;
+  padding: 12px 26px;
+  margin: 8px;
+  border-radius: 40px;
+  text-decoration: none;
+  font-weight: 500;
   background: var(--accent);
   color: white;
-  border-radius: 6px;
-  text-decoration: none;
+  box-shadow: 0 8px 20px rgba(37,99,235,0.25);
+  transition: 0.3s ease;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+.section {
+  padding: 120px 10%;
+}
+
+.section h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem;
+  margin-bottom: 50px;
+  text-align: center;
+  position: relative;
+}
+
+.section h2::after {
+  content: "";
+  display: block;
+  width: 60px;
+  height: 3px;
+  background: var(--accent);
+  margin: 20px auto 0 auto;
+  border-radius: 5px;
 }
 
 .figure {
   width: 100%;
   max-width: 950px;
-  margin: 40px auto;
   display: block;
-  border-radius: 12px;
+  margin: 60px auto;
+  border-radius: 16px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.08);
 }
 
 .two-col {
   display: flex;
-  gap: 50px;
+  gap: 60px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
-.col { flex: 1; min-width: 280px; }
+.col {
+  flex: 1;
+  min-width: 300px;
+}
+
+.card-row {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-top: 50px;
+}
 
 .card {
+  flex: 1;
+  min-width: 260px;
   background: var(--card);
-  padding: 25px;
-  border-radius: 12px;
-  margin-top: 20px;
+  padding: 35px;
+  border-radius: 18px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+  transition: 0.3s ease;
 }
 
-.slider-container {
-  position: relative;
-  max-width: 900px;
-  margin: 40px auto;
+.card:hover {
+  transform: translateY(-6px);
 }
 
-.slider-container img {
-  width: 100%;
-  border-radius: 12px;
+.card h3 {
+  margin-bottom: 15px;
 }
 
-.slider-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  overflow: hidden;
-  width: 50%;
+.caption {
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9rem;
+  margin-top: -40px;
 }
 
-.slider {
-  position: absolute;
-  width: 100%;
-  bottom: -20px;
-}
-
+/* FOOTER */
 footer {
-  padding: 50px;
+  padding: 70px;
   text-align: center;
   color: var(--muted);
   border-top: 1px solid rgba(0,0,0,0.05);
+  margin-top: 100px;
+}
+
+/* SCROLL ANIMATION */
+.fade {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.9s ease;
+}
+
+.fade.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
 </style>
 </head>
 <body>
 
 <nav>
-  <div><strong>LiteEmbed</strong></div>
+  <strong>LiteEmbed</strong>
   <div>
     <a href="#problem">Problem</a>
     <a href="#method">Method</a>
     <a href="#results">Results</a>
     <a href="#tasks">Tasks</a>
-    <span class="toggle" onclick="toggleDark()">Toggle Dark</span>
   </div>
 </nav>
 
 <section class="hero">
   <h1>LiteEmbed</h1>
   <div class="subtitle">
-    Plug-and-play Few-Shot Adaptation of CLIP for Rare Classes
+    Subspace-Guided Few-Shot Adaptation of CLIP for Rare and Underrepresented Classes
   </div>
 
-  <a class="btn" href="https://arxiv.org/pdf/2601.09661.pdf">Paper</a>
-  <a class="btn" href="https://arxiv.org/abs/2601.09661">arXiv</a>
-  <a class="btn" href="https://github.com/aisagarw/LiteEmbed">Code</a>
+  <a class="btn" href="https://arxiv.org/pdf/2601.09661.pdf">Read Paper</a>
+  <a class="btn" href="https://github.com/aisagarw/LiteEmbed">View Code</a>
 
-  <img src="figures/teaser.png" class="figure">
+  <img src="figures/teaser.png" class="figure fade">
 </section>
 
-<section id="problem" class="section">
-  <h2 class="center">CLIP Fails on Rare Classes</h2>
+<section id="problem" class="section fade">
+  <h2>The Rare-Class Gap</h2>
   <div class="two-col">
     <div class="col">
-      <p>
-        While CLIP excels in zero-shot recognition, it struggles
-        with rare, emerging, and culturally specific classes.
-        Many receive near-zero recognition accuracy.
+      <p style="font-size:1.1rem;">
+        CLIP achieves impressive zero-shot performance —
+        yet struggles with rare, emerging, and culturally specific classes.
+        Many receive near-zero recognition.
       </p>
     </div>
     <div class="col">
@@ -189,76 +224,57 @@ footer {
   </div>
 </section>
 
-<section class="section">
-  <h2 class="center">Naïve Optimization Causes Collapse</h2>
-
-  <!-- Before / After Slider -->
-  <div class="slider-container">
-    <img src="figures/tsne_naive.png">
-    <div class="slider-overlay" id="overlay">
-      <img src="figures/tsne_liteembed.png">
-    </div>
-    <input type="range" min="0" max="100" value="50"
-      class="slider"
-      oninput="moveSlider(this.value)">
-  </div>
-
-  <div class="center" style="color:var(--muted);">
-    Drag slider to compare Naïve vs LiteEmbed embeddings
+<section class="section fade">
+  <h2>Naïve Adaptation Fails</h2>
+  <img src="figures/tsne_analysis.png" class="figure">
+  <div class="caption">
+    Alignment-only optimization causes discriminative collapse and semantic drift.
   </div>
 </section>
 
-<section id="method" class="section">
-  <h2 class="center">Subspace-Guided Optimization</h2>
+<section id="method" class="section fade">
+  <h2>Subspace-Guided Optimization</h2>
   <img src="figures/pipeline.png" class="figure">
 
-  <div class="two-col">
+  <div class="card-row">
     <div class="card">
       <h3>Image–Text Alignment</h3>
-      Align embedding to few-shot exemplars.
+      Refines embeddings using few-shot exemplars.
     </div>
     <div class="card">
       <h3>Coarse Anchoring</h3>
-      Preserve global semantic structure.
+      Preserves global semantic structure.
     </div>
     <div class="card">
       <h3>Fine Separation</h3>
-      Enhance discrimination among confusable classes.
+      Enhances fine-grained discrimination.
     </div>
   </div>
 </section>
 
-<section id="results" class="section">
-  <h2 class="center">Few-Shot & Continual Learning Results</h2>
+<section id="results" class="section fade">
+  <h2>Strong Few-Shot & Continual Gains</h2>
   <img src="figures/fewshot_table.png" class="figure">
   <img src="figures/continual_results.png" class="figure">
 </section>
 
-<section id="tasks" class="section">
-  <h2 class="center">Plug-and-Play Across Tasks</h2>
+<section id="tasks" class="section fade">
+  <h2>Plug-and-Play Across Tasks</h2>
   <img src="figures/downstream.png" class="figure">
   <img src="figures/generation.png" class="figure">
 </section>
 
 <footer>
-  © 2026 LiteEmbed · CVIT IIIT Hyderabad & Adobe Research
+  © 2026 LiteEmbed · CVIT IIIT Hyderabad · Adobe Research
 </footer>
 
 <script>
-function toggleDark() {
-  document.body.classList.toggle("dark");
-}
-
-function moveSlider(val) {
-  document.getElementById("overlay").style.width = val + "%";
-}
-
-const sections = document.querySelectorAll('.section');
+const fades = document.querySelectorAll('.fade');
 window.addEventListener('scroll', () => {
-  sections.forEach(sec => {
-    const rect = sec.getBoundingClientRect();
+  fades.forEach(f => {
+    const rect = f.getBoundingClientRect();
     if (rect.top < window.innerHeight - 100) {
-      sec.classList.add('visible');
+      f.classList.add('visible');
     }
   });
 });
