@@ -8,213 +8,261 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --bg: #ffffff;
+  --text: #111;
+  --muted: #666;
+  --accent: #2563eb;
+  --card: #f5f7fa;
+}
+
+body.dark {
+  --bg: #0f172a;
+  --text: #f1f5f9;
+  --muted: #94a3b8;
+  --card: #1e293b;
+}
+
 body {
-    margin: 0;
-    font-family: 'Inter', sans-serif;
-    background: #ffffff;
-    color: #1a1a1a;
-    line-height: 1.6;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  scroll-behavior: smooth;
+  transition: 0.3s ease;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  padding: 15px 8%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+  z-index: 1000;
+}
+
+nav a {
+  text-decoration: none;
+  color: var(--text);
+  margin-left: 20px;
+  font-weight: 500;
+}
+
+.toggle {
+  cursor: pointer;
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: var(--card);
+  font-size: 0.8rem;
 }
 
 .section {
-    padding: 80px 10%;
+  padding: 100px 10%;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
 }
 
-.center {
-    text-align: center;
+.section.visible {
+  opacity: 1;
+  transform: translateY(0);
 }
+
+.center { text-align: center; }
 
 .hero {
-    padding: 100px 10% 80px 10%;
-    background: linear-gradient(to bottom, #f8fafc, #ffffff);
+  padding: 120px 10%;
+  text-align: center;
 }
 
-h1 {
-    font-size: 2.8rem;
-    margin-bottom: 10px;
-}
-
-.subtitle {
-    font-size: 1.2rem;
-    color: #555;
-    margin-bottom: 30px;
-}
-
-.authors {
-    color: #666;
-    margin-bottom: 20px;
-}
+h1 { font-size: 3rem; margin-bottom: 10px; }
+.subtitle { color: var(--muted); margin-bottom: 30px; }
 
 .btn {
-    display: inline-block;
-    padding: 10px 20px;
-    margin: 5px;
-    background: #2563eb;
-    color: white;
-    border-radius: 6px;
-    text-decoration: none;
-    font-weight: 500;
+  display: inline-block;
+  padding: 10px 20px;
+  margin: 6px;
+  background: var(--accent);
+  color: white;
+  border-radius: 6px;
+  text-decoration: none;
 }
 
 .figure {
-    width: 100%;
-    max-width: 900px;
-    margin: 40px auto;
-    display: block;
+  width: 100%;
+  max-width: 950px;
+  margin: 40px auto;
+  display: block;
+  border-radius: 12px;
 }
 
-.two-column {
-    display: flex;
-    gap: 50px;
-    align-items: center;
+.two-col {
+  display: flex;
+  gap: 50px;
+  flex-wrap: wrap;
 }
 
-.two-column img {
-    width: 100%;
-    border-radius: 8px;
-}
-
-.column {
-    flex: 1;
-}
-
-.card-container {
-    display: flex;
-    gap: 30px;
-    flex-wrap: wrap;
-}
+.col { flex: 1; min-width: 280px; }
 
 .card {
-    flex: 1;
-    min-width: 250px;
-    background: #f9fafb;
-    padding: 25px;
-    border-radius: 10px;
+  background: var(--card);
+  padding: 25px;
+  border-radius: 12px;
+  margin-top: 20px;
 }
 
-h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
+.slider-container {
+  position: relative;
+  max-width: 900px;
+  margin: 40px auto;
 }
 
-.caption {
-    text-align: center;
-    font-size: 0.9rem;
-    color: #555;
+.slider-container img {
+  width: 100%;
+  border-radius: 12px;
+}
+
+.slider-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  overflow: hidden;
+  width: 50%;
+}
+
+.slider {
+  position: absolute;
+  width: 100%;
+  bottom: -20px;
 }
 
 footer {
-    padding: 40px;
-    text-align: center;
-    font-size: 0.85rem;
-    color: #777;
-    border-top: 1px solid #eee;
+  padding: 50px;
+  text-align: center;
+  color: var(--muted);
+  border-top: 1px solid rgba(0,0,0,0.05);
 }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
-<section class="hero center">
-<h1>LiteEmbed</h1>
-<div class="subtitle">Plug-and-play Few-Shot Adaptation of CLIP for Rare Classes</div>
-<div class="authors">Aishwarya Agarwal · Srikrishna Karanam · Vineet Gandhi</div>
+<nav>
+  <div><strong>LiteEmbed</strong></div>
+  <div>
+    <a href="#problem">Problem</a>
+    <a href="#method">Method</a>
+    <a href="#results">Results</a>
+    <a href="#tasks">Tasks</a>
+    <span class="toggle" onclick="toggleDark()">Toggle Dark</span>
+  </div>
+</nav>
 
-<a class="btn" href="https://arxiv.org/pdf/2601.09661.pdf">Paper</a>
-<a class="btn" href="https://arxiv.org/abs/2601.09661">arXiv</a>
-<a class="btn" href="https://github.com/aisagarw/LiteEmbed">Code</a>
+<section class="hero">
+  <h1>LiteEmbed</h1>
+  <div class="subtitle">
+    Plug-and-play Few-Shot Adaptation of CLIP for Rare Classes
+  </div>
 
-<img src="figures/teaser.png" class="figure">
-<div class="caption">LiteEmbed improves classification, retrieval, segmentation, detection, and generation without retraining CLIP.</div>
+  <a class="btn" href="https://arxiv.org/pdf/2601.09661.pdf">Paper</a>
+  <a class="btn" href="https://arxiv.org/abs/2601.09661">arXiv</a>
+  <a class="btn" href="https://github.com/aisagarw/LiteEmbed">Code</a>
+
+  <img src="figures/teaser.png" class="figure">
 </section>
 
-<!-- PROBLEM -->
+<section id="problem" class="section">
+  <h2 class="center">CLIP Fails on Rare Classes</h2>
+  <div class="two-col">
+    <div class="col">
+      <p>
+        While CLIP excels in zero-shot recognition, it struggles
+        with rare, emerging, and culturally specific classes.
+        Many receive near-zero recognition accuracy.
+      </p>
+    </div>
+    <div class="col">
+      <img src="figures/clip_gap.png" class="figure">
+    </div>
+  </div>
+</section>
+
 <section class="section">
-<h2 class="center">CLIP Struggles on Rare Classes</h2>
-<div class="two-column">
-<div class="column">
-<p>
-While CLIP achieves strong zero-shot performance, it fails on underrepresented and culturally specific classes.
-Many classes receive near-zero recognition accuracy.
-</p>
-</div>
-<div class="column">
-<img src="figures/clip_gap.png">
-</div>
-</div>
+  <h2 class="center">Naïve Optimization Causes Collapse</h2>
+
+  <!-- Before / After Slider -->
+  <div class="slider-container">
+    <img src="figures/tsne_naive.png">
+    <div class="slider-overlay" id="overlay">
+      <img src="figures/tsne_liteembed.png">
+    </div>
+    <input type="range" min="0" max="100" value="50"
+      class="slider"
+      oninput="moveSlider(this.value)">
+  </div>
+
+  <div class="center" style="color:var(--muted);">
+    Drag slider to compare Naïve vs LiteEmbed embeddings
+  </div>
 </section>
 
-<!-- NAIVE FAIL -->
-<section class="section" style="background:#f8fafc;">
-<h2 class="center">Why Naïve Optimization Fails</h2>
-<img src="figures/tsne_analysis.png" class="figure">
-<div class="caption">
-Naïve alignment causes discriminative collapse and semantic drift. LiteEmbed restores structure.
-</div>
+<section id="method" class="section">
+  <h2 class="center">Subspace-Guided Optimization</h2>
+  <img src="figures/pipeline.png" class="figure">
+
+  <div class="two-col">
+    <div class="card">
+      <h3>Image–Text Alignment</h3>
+      Align embedding to few-shot exemplars.
+    </div>
+    <div class="card">
+      <h3>Coarse Anchoring</h3>
+      Preserve global semantic structure.
+    </div>
+    <div class="card">
+      <h3>Fine Separation</h3>
+      Enhance discrimination among confusable classes.
+    </div>
+  </div>
 </section>
 
-<!-- INSIGHT -->
-<section class="section">
-<h2 class="center">Key Insight: Hierarchical CLIP Geometry</h2>
-<img src="figures/pca_analysis.png" class="figure">
-<div class="caption">
-High-variance components capture coarse semantics. Low-variance components encode fine-grained distinctions.
-</div>
+<section id="results" class="section">
+  <h2 class="center">Few-Shot & Continual Learning Results</h2>
+  <img src="figures/fewshot_table.png" class="figure">
+  <img src="figures/continual_results.png" class="figure">
 </section>
 
-<!-- METHOD -->
-<section class="section" style="background:#f8fafc;">
-<h2 class="center">Subspace-Guided Optimization</h2>
-<img src="figures/pipeline.png" class="figure">
-
-<div class="card-container">
-<div class="card">
-<h3>Image–Text Alignment</h3>
-<p>Align embedding with few-shot exemplars.</p>
-</div>
-
-<div class="card">
-<h3>Coarse Anchoring</h3>
-<p>Preserve global semantic neighborhood.</p>
-</div>
-
-<div class="card">
-<h3>Fine Separation</h3>
-<p>Enhance discrimination from visually similar classes.</p>
-</div>
-</div>
-</section>
-
-<!-- RESULTS -->
-<section class="section">
-<h2 class="center">Few-Shot & Continual Results</h2>
-<img src="figures/fewshot_table.png" class="figure">
-<img src="figures/continual_results.png" class="figure">
-</section>
-
-<!-- DOWNSTREAM -->
-<section class="section" style="background:#f8fafc;">
-<h2 class="center">Plug-and-Play Across Tasks</h2>
-<img src="figures/downstream.png" class="figure">
-<img src="figures/generation.png" class="figure">
-</section>
-
-<!-- CITATION -->
-<section class="section center">
-<h2>Citation</h2>
-<pre>
-@article{agarwal2026liteembed,
-  title={LiteEmbed: Adapting CLIP to Rare Classes},
-  author={Agarwal, Aishwarya and Karanam, Srikrishna and Gandhi, Vineet},
-  journal={arXiv preprint arXiv:2601.09661},
-  year={2026}
-}
-</pre>
+<section id="tasks" class="section">
+  <h2 class="center">Plug-and-Play Across Tasks</h2>
+  <img src="figures/downstream.png" class="figure">
+  <img src="figures/generation.png" class="figure">
 </section>
 
 <footer>
-© 2026 LiteEmbed
+  © 2026 LiteEmbed · CVIT IIIT Hyderabad & Adobe Research
 </footer>
+
+<script>
+function toggleDark() {
+  document.body.classList.toggle("dark");
+}
+
+function moveSlider(val) {
+  document.getElementById("overlay").style.width = val + "%";
+}
+
+const sections = document.querySelectorAll('.section');
+window.addEventListener('scroll', () => {
+  sections.forEach(sec => {
+    const rect = sec.getBoundingClientRect();
+    if (rect.top < window.innerHeight - 100) {
+      sec.classList.add('visible');
+    }
+  });
+});
+</script>
 
 </body>
 </html>
