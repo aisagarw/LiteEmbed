@@ -66,9 +66,20 @@ h1 {
   border-radius: 18px;
 }
 
+figure {
+  margin: 0;
+}
+
 .figure {
   width: 100%;
   border-radius: 14px;
+}
+
+figcaption {
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-top: 12px;
 }
 
 .text-block {
@@ -119,7 +130,12 @@ Vineet Gandhi<sup>1</sup>
 </div>
 
 <div class="section-box">
+<figure>
 <img src="assets/figures/teaser.png" class="figure">
+<figcaption>
+Figure 1: LiteEmbed refines CLIP’s text embedding using subspace-guided optimization from only 3–5 reference images, enabling improved classification, retrieval, segmentation, and detection without retraining CLIP encoders.
+</figcaption>
+</figure>
 </div>
 
 <div class="section-title">Abstract</div>
@@ -136,34 +152,72 @@ detection, and generation without task-specific retraining.
 
 <div class="section-title">Method</div>
 <div class="section-box">
-<img src="figures/pipeline.png" class="figure">
+<figure>
+<img src="assets/figures/pipeline.png" class="figure">
+<figcaption>
+Figure 2: Overview of LiteEmbed. A learnable token embedding is optimized using image-text alignment together with coarse semantic anchoring and fine separation losses.
+</figcaption>
+</figure>
 </div>
 
 <div class="section-title">Understanding CLIP Geometry</div>
+
 <div class="section-box">
-<img src="figures/tsne_analysis.png" class="figure">
+<figure>
+<img src="assets/figures/tsne_analysis.png" class="figure">
+<figcaption>
+Figure 3: t-SNE visualization showing that naïve optimization leads to discriminative collapse, while LiteEmbed preserves separation between visually similar classes.
+</figcaption>
+</figure>
 </div>
 
 <div class="section-box" style="margin-top:30px;">
-<img src="figures/pca_analysis.png" class="figure">
+<figure>
+<img src="assets/figures/pca_analysis.png" class="figure">
+<figcaption>
+Figure 4: PCA analysis of CLIP’s text embedding space showing that high-variance components encode coarse semantics while lower-variance components capture fine-grained variations.
+</figcaption>
+</figure>
 </div>
 
 <div class="section-title">Results</div>
+
 <div class="section-box">
-<img src="figures/fewshot_table.png" class="figure">
+<figure>
+<img src="assets/figures/fewshot_table.png" class="figure">
+<figcaption>
+Figure 5: Few-shot classification accuracy across eight datasets demonstrating consistent gains over prompt-learning, adapter-based, and test-time adaptation methods.
+</figcaption>
+</figure>
 </div>
 
 <div class="section-box" style="margin-top:30px;">
-<img src="figures/continual_results.png" class="figure">
+<figure>
+<img src="assets/figures/continual_results.png" class="figure">
+<figcaption>
+Figure 6: Continual learning results showing that LiteEmbed sequentially integrates new classes with reduced forgetting compared to existing methods.
+</figcaption>
+</figure>
 </div>
 
 <div class="section-title">Plug-and-Play Across Tasks</div>
+
 <div class="section-box">
-<img src="figures/downstream.png" class="figure">
+<figure>
+<img src="assets/figures/downstream.png" class="figure">
+<figcaption>
+Figure 7: Qualitative results demonstrating improvements in image retrieval, segmentation, and detection when replacing CLIP embeddings with LiteEmbed embeddings.
+</figcaption>
+</figure>
 </div>
 
 <div class="section-box" style="margin-top:30px;">
-<img src="figures/generation.png" class="figure">
+<figure>
+<img src="assets/figures/generation.png" class="figure">
+<figcaption>
+Figure 8: Generation results showing improved compositional editing when LiteEmbed embeddings are used with textual inversion.
+</figcaption>
+</figure>
 </div>
 
 <div class="section-title">Limitations</div>
