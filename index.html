@@ -80,6 +80,10 @@ figcaption {
   font-size: 0.9rem;
   color: #555;
   margin-top: 12px;
+  line-height: 1.5;
+  max-width: 750px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .text-block {
@@ -104,6 +108,7 @@ pre {
 }
 </style>
 </head>
+
 <body>
 
 <div class="container">
@@ -116,7 +121,7 @@ Srikrishna Karanam<sup>2</sup> ·
 Vineet Gandhi<sup>1</sup>
 </div>
 
-<div class="affiliations" style="margin-top:15px;">
+<div class="affiliations">
 <sup>1</sup> CVIT, Kohli Centre for Intelligent Systems, IIIT Hyderabad<br>
 <sup>2</sup> Adobe Research, Bengaluru
 </div>
@@ -129,36 +134,46 @@ Vineet Gandhi<sup>1</sup>
 <a href="#">Demo</a>
 </div>
 
+<!-- Teaser -->
 <div class="section-box">
 <figure>
 <img src="assets/figures/teaser.png" class="figure">
 <figcaption>
-Figure 1: LiteEmbed refines CLIP’s text embedding using subspace-guided optimization from only 3–5 reference images, enabling improved classification, retrieval, segmentation, and detection without retraining CLIP encoders.
+<strong>Figure 1:</strong> LiteEmbed enables few-shot adaptation of CLIP to rare classes without retraining the model.
+Given only 3–5 reference images, LiteEmbed learns a refined text embedding that improves recognition and retrieval of rare categories.
+The optimized embeddings can be directly plugged into existing CLIP-based pipelines for classification, retrieval, segmentation, and detection.
 </figcaption>
 </figure>
 </div>
 
 <div class="section-title">Abstract</div>
+
 <div class="text-block">
-Large-scale vision–language models such as CLIP achieve strong zero-shot recognition
-but struggle with classes rarely seen in pretraining. We introduce LiteEmbed,
-a lightweight framework for few-shot personalization of CLIP that enables new classes
-to be added without retraining its encoders. LiteEmbed performs subspace-guided
-optimization of text embeddings using a PCA-based decomposition that balances
-coarse semantic anchoring and fine-grained discrimination. The optimized embeddings
-are plug-and-play and improve classification, retrieval, segmentation,
-detection, and generation without task-specific retraining.
+Large-scale vision–language models such as CLIP achieve strong zero-shot recognition but struggle with classes rarely seen during pretraining,
+including newly emerging entities and culturally specific concepts.
+We introduce LiteEmbed, a lightweight framework that adapts CLIP to rare classes using only a few reference images.
+LiteEmbed performs subspace-guided optimization of text embeddings using a PCA-based decomposition of CLIP’s embedding space,
+balancing coarse semantic anchoring with fine-grained discrimination.
+The resulting embeddings are plug-and-play and improve performance across classification, retrieval, segmentation, detection,
+and text-to-image generation without retraining CLIP encoders.
 </div>
 
+<!-- Method -->
+
 <div class="section-title">Method</div>
+
 <div class="section-box">
 <figure>
 <img src="assets/figures/pipeline.png" class="figure">
 <figcaption>
-Figure 2: Overview of LiteEmbed. A learnable token embedding is optimized using image-text alignment together with coarse semantic anchoring and fine separation losses.
+<strong>Figure 2:</strong> Overview of LiteEmbed.
+For a target class, a learnable token embedding is inserted into a CLIP text prompt and optimized using a small set of reference images.
+The optimization combines image–text alignment with subspace-guided constraints that preserve coarse semantic relationships while enforcing separation from visually confusable classes.
 </figcaption>
 </figure>
 </div>
+
+<!-- Geometry -->
 
 <div class="section-title">Understanding CLIP Geometry</div>
 
@@ -166,7 +181,9 @@ Figure 2: Overview of LiteEmbed. A learnable token embedding is optimized using 
 <figure>
 <img src="assets/figures/tsne_analysis.png" class="figure">
 <figcaption>
-Figure 3: t-SNE visualization showing that naïve optimization leads to discriminative collapse, while LiteEmbed preserves separation between visually similar classes.
+<strong>Figure 3:</strong> t-SNE visualization of CLIP’s text embedding space during adaptation.
+Naïve optimization using only image–text alignment leads to discriminative collapse and semantic drift between visually similar classes.
+LiteEmbed maintains separation between classes while preserving semantic structure.
 </figcaption>
 </figure>
 </div>
@@ -175,10 +192,15 @@ Figure 3: t-SNE visualization showing that naïve optimization leads to discrimi
 <figure>
 <img src="assets/figures/pca_analysis.png" class="figure">
 <figcaption>
-Figure 4: PCA analysis of CLIP’s text embedding space showing that high-variance components encode coarse semantics while lower-variance components capture fine-grained variations.
+<strong>Figure 4:</strong> PCA analysis of CLIP’s text embedding space.
+High-variance components capture coarse semantic structure across categories,
+while lower-variance components encode fine-grained distinctions between visually similar classes.
+LiteEmbed leverages this hierarchy to guide optimization.
 </figcaption>
 </figure>
 </div>
+
+<!-- Results -->
 
 <div class="section-title">Results</div>
 
@@ -186,7 +208,9 @@ Figure 4: PCA analysis of CLIP’s text embedding space showing that high-varian
 <figure>
 <img src="assets/figures/fewshot_table.png" class="figure">
 <figcaption>
-Figure 5: Few-shot classification accuracy across eight datasets demonstrating consistent gains over prompt-learning, adapter-based, and test-time adaptation methods.
+<strong>Figure 5:</strong> Few-shot classification results across eight datasets.
+LiteEmbed consistently outperforms prompt-learning, adapter-based, and test-time adaptation methods,
+achieving substantial improvements over CLIP’s zero-shot performance.
 </figcaption>
 </figure>
 </div>
@@ -195,10 +219,13 @@ Figure 5: Few-shot classification accuracy across eight datasets demonstrating c
 <figure>
 <img src="assets/figures/continual_results.png" class="figure">
 <figcaption>
-Figure 6: Continual learning results showing that LiteEmbed sequentially integrates new classes with reduced forgetting compared to existing methods.
+<strong>Figure 6:</strong> Continual adaptation results where new classes are introduced sequentially.
+LiteEmbed integrates new concepts while maintaining stable performance on previously learned classes.
 </figcaption>
 </figure>
 </div>
+
+<!-- Downstream -->
 
 <div class="section-title">Plug-and-Play Across Tasks</div>
 
@@ -206,7 +233,8 @@ Figure 6: Continual learning results showing that LiteEmbed sequentially integra
 <figure>
 <img src="assets/figures/downstream.png" class="figure">
 <figcaption>
-Figure 7: Qualitative results demonstrating improvements in image retrieval, segmentation, and detection when replacing CLIP embeddings with LiteEmbed embeddings.
+<strong>Figure 7:</strong> Qualitative results demonstrating improvements in retrieval, segmentation, and detection
+when CLIP text embeddings are replaced with LiteEmbed embeddings.
 </figcaption>
 </figure>
 </div>
@@ -215,20 +243,29 @@ Figure 7: Qualitative results demonstrating improvements in image retrieval, seg
 <figure>
 <img src="assets/figures/generation.png" class="figure">
 <figcaption>
-Figure 8: Generation results showing improved compositional editing when LiteEmbed embeddings are used with textual inversion.
+<strong>Figure 8:</strong> Generation results showing that LiteEmbed embeddings can be used with textual inversion
+to enable improved compositional editing and controllable generation.
 </figcaption>
 </figure>
 </div>
 
+<!-- Limitations -->
+
 <div class="section-title">Limitations</div>
+
 <div class="text-block">
 LiteEmbed relies on the semantic structure of CLIP's embedding space.
-Extreme viewpoint shifts or highly compositional prompts may still cause
-semantic drift or imperfect alignment, especially when visual ambiguity
-between classes remains strong.
+In cases where visual ambiguity between classes is extremely high,
+or when prompts require complex compositional reasoning,
+adaptation may still produce imperfect alignment.
+Future work will explore extending subspace-guided optimization
+to larger multimodal models and more complex adaptation settings.
 </div>
 
+<!-- Citation -->
+
 <div class="section-title">Citation</div>
+
 <pre>
 @article{agarwal2026liteembed,
   title={LiteEmbed: Adapting CLIP to Rare Classes},
