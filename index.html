@@ -20,55 +20,72 @@ background:#ffffff;
 color:#222;
 }
 
+/* -------- Header (Custom Diffusion Style) -------- */
+
+.header{
+background:#f5f5f5;
+text-align:center;
+padding:65px 20px 60px 20px;
+margin-bottom:40px;
+}
+
+.header h1{
+font-size:2.6rem;
+font-weight:600;
+letter-spacing:-0.02em;
+margin-bottom:14px;
+}
+
+.authors{
+font-size:1rem;
+margin-top:10px;
+}
+
+.authors a{
+color:#2563eb;
+text-decoration:none;
+font-weight:500;
+}
+
+.authors a:hover{
+text-decoration:underline;
+}
+
+.affiliations{
+color:#666;
+margin-top:8px;
+font-size:0.95rem;
+}
+
+/* -------- Top Buttons -------- */
+
+.top-buttons{
+margin-top:30px;
+}
+
+.btn{
+display:inline-block;
+background:#e9e9e9;
+padding:10px 22px;
+margin:8px;
+border-radius:8px;
+text-decoration:none;
+color:#333;
+font-weight:500;
+font-size:0.9rem;
+}
+
+.btn:hover{
+background:#dedede;
+}
+
 /* -------- Container -------- */
 
 .container{
 width:1100px;
 max-width:94%;
 margin:auto;
-padding:70px 0;
-}
-
-/* -------- Title -------- */
-
-h1{
-text-align:center;
-font-size:2.6rem;
-font-weight:600;
-letter-spacing:-0.02em;
-margin-bottom:8px;
-}
-
-.authors{
-text-align:center;
-color:#555;
-font-size:0.95rem;
-}
-
-.affiliations{
-text-align:center;
-color:#666;
-margin-top:6px;
-font-size:0.92rem;
-}
-
-/* -------- Links -------- */
-
-.links{
-text-align:center;
-margin-top:22px;
-margin-bottom:55px;
-}
-
-.links a{
-margin:0 16px;
-text-decoration:none;
-color:#2563eb;
-font-weight:500;
-}
-
-.links a:hover{
-text-decoration:underline;
+padding:20px 0 70px 0;
 }
 
 /* -------- Sections -------- */
@@ -170,14 +187,16 @@ font-size:0.9rem;
 
 <body>
 
-<div class="container">
+<!-- HEADER -->
+
+<div class="header">
 
 <h1>LiteEmbed: Adapting CLIP to Rare Classes</h1>
 
 <div class="authors">
-Aishwarya Agarwal<sup>1,2</sup> ·
-Srikrishna Karanam<sup>2</sup> ·
-Vineet Gandhi<sup>1</sup>
+<a href="https://aisagarw.github.io/" target="_blank">Aishwarya Agarwal</a><sup>1,2</sup> ·
+<a href="https://karanams.github.io/" target="_blank">Srikrishna Karanam</a><sup>2</sup> ·
+<a href="https://vineet-gandhi.github.io/" target="_blank">Vineet Gandhi</a><sup>1</sup>
 </div>
 
 <div class="affiliations">
@@ -185,13 +204,25 @@ Vineet Gandhi<sup>1</sup>
 <sup>2</sup> Adobe Research, Bengaluru
 </div>
 
-<div class="links">
-<a href="https://github.com/aisagarw/LiteEmbed">Code</a>
-<a href="https://arxiv.org/pdf/2601.09661.pdf">Paper</a>
-<a href="#">Project</a>
-<a href="#">Gallery</a>
-<a href="#">Demo</a>
+<div class="top-buttons">
+
+<a class="btn" href="https://github.com/aisagarw/LiteEmbed">Code</a>
+
+<a class="btn" href="https://arxiv.org/pdf/2601.09661.pdf">Paper</a>
+
+<a class="btn" href="#">Project</a>
+
+<a class="btn" href="#">Gallery</a>
+
+<a class="btn" href="#">Demo</a>
+
 </div>
+
+</div>
+
+
+
+<div class="container">
 
 
 <!-- Teaser -->
@@ -272,7 +303,7 @@ embeddings and degraded discrimination. LiteEmbed explicitly preserves this geom
 
 <figure class="small">
 
-<img src="assets/figures/tsne_analysis.png">
+<img src="assets/figures/naive.png">
 
 <figcaption>
 <strong>Figure 3:</strong> t-SNE visualization showing that naïve optimization leads to discriminative collapse,
